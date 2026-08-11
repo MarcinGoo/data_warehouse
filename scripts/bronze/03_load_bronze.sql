@@ -30,7 +30,7 @@ BEGIN
         SET @start_time = GETDATE();
         -- Load Amazon Sales
         BULK INSERT bronze.amazon_sales
-        FROM 'D:\data_warehouse\datasets\Amazon Sale Report.csv'
+        FROM '/datasets/Amazon Sale Report.csv'
         WITH (
             FIRSTROW = 2,
             FIELDTERMINATOR = ',',
@@ -46,7 +46,7 @@ BEGIN
         SET @start_time = GETDATE();
         -- Load International Sales
         BULK INSERT bronze.international_sales
-        FROM 'D:\data_warehouse\datasets\International sale Report.csv'
+        FROM '/datasets/International sale Report.csv'
         WITH (
             FIRSTROW = 2,
             FIELDTERMINATOR = ',',
@@ -62,7 +62,7 @@ BEGIN
         SET @start_time = GETDATE();
         -- Load Product Catalog
         BULK INSERT bronze.product_catalog
-        FROM 'D:\data_warehouse\datasets\May-2022.csv'
+        FROM '/datasets/May-2022.csv'
         WITH (
             FIRSTROW = 2,
             FIELDTERMINATOR = ',',
@@ -78,7 +78,7 @@ BEGIN
         SET @start_time = GETDATE();
         -- Load Inventory
         BULK INSERT bronze.inventory
-        FROM 'D:\data_warehouse\datasets\Sale Report.csv'
+        FROM '/datasets/Sale Report.csv'
         WITH (
             FIRSTROW = 2,
             FIELDTERMINATOR = ',',
