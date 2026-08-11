@@ -35,7 +35,6 @@ BEGIN
             FIRSTROW = 2,
             FIELDTERMINATOR = ',',
             ROWTERMINATOR = '0x0a',
-            CODEPAGE = '65001',
             TABLOCK
         );
         SET @row_count = @@ROWCOUNT;
@@ -51,7 +50,6 @@ BEGIN
             FIRSTROW = 2,
             FIELDTERMINATOR = ',',
             ROWTERMINATOR = '0x0a',
-            CODEPAGE = '65001',
             TABLOCK
         );
         SET @row_count = @@ROWCOUNT;
@@ -67,7 +65,6 @@ BEGIN
             FIRSTROW = 2,
             FIELDTERMINATOR = ',',
             ROWTERMINATOR = '0x0a',
-            CODEPAGE = '65001',
             TABLOCK
         );
         SET @row_count = @@ROWCOUNT;
@@ -83,7 +80,6 @@ BEGIN
             FIRSTROW = 2,
             FIELDTERMINATOR = ',',
             ROWTERMINATOR = '0x0a',
-            CODEPAGE = '65001',
             TABLOCK
         );
         SET @row_count = @@ROWCOUNT;
