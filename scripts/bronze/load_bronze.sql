@@ -1,5 +1,5 @@
 -- =============================================================================
--- Script Name: 03_load_bronze.sql
+-- Script Name: load_bronze.sql
 -- Purpose: Reload bronze tables directly from source CSVs.
 --          Wrapped in a stored procedure with TRY/CATCH error handling
 --          and load-duration/row-count logging via PRINT.

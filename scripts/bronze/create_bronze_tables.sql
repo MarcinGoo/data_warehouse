@@ -1,5 +1,5 @@
 -- =============================================================================
--- Script Name: 02_create_bronze_tables.sql
+-- Script Name: create_bronze_tables.sql
 -- Purpose: Create raw ingestion tables in the 'bronze' schema.
 -- =============================================================================
 
