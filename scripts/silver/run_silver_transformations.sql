@@ -9,5 +9,4 @@ GO
 EXEC silver.sp_transform_amazon_sales;
 EXEC silver.sp_transform_international_sales;
 EXEC silver.sp_transform_inventory;
-EXEC silver.sp_transform_product_catalog;
 GO
