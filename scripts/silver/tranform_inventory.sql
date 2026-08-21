@@ -25,7 +25,7 @@ BEGIN
     SELECT
         NULLIF(LTRIM(RTRIM(sku_code)), '') AS sku_code,
         NULLIF(LTRIM(RTRIM(design_no)), '') AS design_no,
-        TRY_CAST(NULLIF(LTRIM(RTRIM(stock)), '') AS INT) AS stock,
+        CAST(ROUND(TRY_CAST(NULLIF(LTRIM(RTRIM(stock)), '') AS DECIMAL(18, 2)), 0) AS INT) AS stock,
         NULLIF(LTRIM(RTRIM(category)), '') AS category,
         NULLIF(LTRIM(RTRIM(size)), '') AS size,
         NULLIF(LTRIM(RTRIM(color)), '') AS color,
