@@ -56,32 +56,7 @@ BEGIN
 END;
 GO
 
--- 3. Table for source file: May-2022.csv
-IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON t.schema_id = s.schema_id WHERE s.name = 'bronze' AND t.name = 'product_catalog')
-BEGIN
-    CREATE TABLE bronze.product_catalog (
-        [index]                  VARCHAR(MAX),
-        sku                      VARCHAR(MAX),
-        style_id                 VARCHAR(MAX),
-        catalog                  VARCHAR(MAX),
-        category                 VARCHAR(MAX),
-        weight                   VARCHAR(MAX),
-        tp                       VARCHAR(MAX),
-        mrp_old                  VARCHAR(MAX),
-        final_mrp_old            VARCHAR(MAX),
-        ajio_mrp                 VARCHAR(MAX),
-        amazon_mrp               VARCHAR(MAX),
-        amazon_fba_mrp           VARCHAR(MAX),
-        flipkart_mrp             VARCHAR(MAX),
-        limeroad_mrp             VARCHAR(MAX),
-        myntra_mrp               VARCHAR(MAX),
-        paytm_mrp                VARCHAR(MAX),
-        snapdeal_mrp             VARCHAR(MAX)
-    );
-END;
-GO
-
--- 4. Table for source file: Sale Report.csv
+-- 3. Table for source file: Sale Report.csv
 IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON t.schema_id = s.schema_id WHERE s.name = 'bronze' AND t.name = 'inventory')
 BEGIN
     CREATE TABLE bronze.inventory (
