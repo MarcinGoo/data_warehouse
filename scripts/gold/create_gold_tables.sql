@@ -44,13 +44,9 @@ BEGIN
         product_key         INT NOT NULL PRIMARY KEY,
         sku                 NVARCHAR(200) NOT NULL,
         style_id            NVARCHAR(200) NULL,
-        catalog_name        NVARCHAR(200) NULL,
         category            NVARCHAR(200) NULL,
         size                NVARCHAR(50) NULL,
         color               NVARCHAR(100) NULL,
-        weight              DECIMAL(18,3) NULL,
-        unit_cost_tp        DECIMAL(18,2) NULL,
-        mrp_amazon          DECIMAL(18,2) NULL,
         current_stock       INT NULL,
         dwh_create_date     DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
     );
@@ -112,11 +108,10 @@ BEGIN
         sales_source        NVARCHAR(50) NOT NULL,
         customer_name       NVARCHAR(200) NULL,
         quantity            INT NOT NULL,
-        sales_amount        DECIMAL(18,2) NOT NULL,
+        gross_sales_amount  DECIMAL(18,2) NOT NULL,
+        net_sales_amount    DECIMAL(18,2) NOT NULL,
+        cancelled_amount    DECIMAL(18,2) NOT NULL,
         unit_price          DECIMAL(18,2) NULL,
-        unit_cost           DECIMAL(18,2) NULL,
-        total_cost          DECIMAL(18,2) NULL,
-        gross_profit        DECIMAL(18,2) NULL,
         is_b2b              BIT NOT NULL DEFAULT 0,
         dwh_create_date     DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
     );

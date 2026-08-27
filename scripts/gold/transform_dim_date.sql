@@ -55,11 +55,11 @@ BEGIN
         DATEPART(QUARTER, DateValue) AS [quarter],
         'Q' + CAST(DATEPART(QUARTER, DateValue) AS VARCHAR(1)) AS quarter_name,
         MONTH(DateValue) AS month_num,
-        DATENAME(MONTH, DateValue) AS month_name,
-        FORMAT(DateValue, 'MMM yyyy') AS month_year,
+        FORMAT(DateValue, 'MMMM', 'en-US') AS month_name,
+        FORMAT(DateValue, 'MMM yyyy', 'en-US') AS month_year,
         DAY(DateValue) AS day_of_month,
         DATEPART(WEEKDAY, DateValue) AS day_of_week_num,
-        DATENAME(WEEKDAY, DateValue) AS day_of_week_name,
+        FORMAT(DateValue, 'dddd', 'en-US') AS day_of_week_name,
         CASE WHEN DATEPART(WEEKDAY, DateValue) IN (1, 7) THEN 1 ELSE 0 END AS is_weekend
     FROM DateSequence
     OPTION (MAXRECURSION 2000);

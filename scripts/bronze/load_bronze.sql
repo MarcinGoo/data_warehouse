@@ -24,7 +24,6 @@ BEGIN
         -- Clear bronze tables before loading
         TRUNCATE TABLE bronze.amazon_sales;
         TRUNCATE TABLE bronze.international_sales;
-        TRUNCATE TABLE bronze.product_catalog;
         TRUNCATE TABLE bronze.inventory;
 
         SET @start_time = GETDATE();
@@ -55,21 +54,6 @@ BEGIN
         SET @row_count = @@ROWCOUNT;
         SET @end_time = GETDATE();
         PRINT '>> Load duration of "International Sales" table: ' + CAST(DATEDIFF(second,@start_time,@end_time) AS NVARCHAR) + ' seconds';
-        PRINT '>> Rows loaded: ' + CAST(@row_count AS NVARCHAR);
-
-        SET @start_time = GETDATE();
-        -- Load Product Catalog
-        BULK INSERT bronze.product_catalog
-        FROM '/datasets/May-2022.csv'
-        WITH (
-            FIRSTROW = 2,
-            FIELDTERMINATOR = ',',
-            ROWTERMINATOR = '0x0a',
-            TABLOCK
-        );
-        SET @row_count = @@ROWCOUNT;
-        SET @end_time = GETDATE();
-        PRINT '>> Load duration of "Product Catalog" table: ' + CAST(DATEDIFF(second,@start_time,@end_time) AS NVARCHAR) + ' seconds';
         PRINT '>> Rows loaded: ' + CAST(@row_count AS NVARCHAR);
 
         SET @start_time = GETDATE();

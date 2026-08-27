@@ -41,14 +41,7 @@ BEGIN
                 WHEN LOWER(NULLIF(LTRIM(RTRIM(b2b)), '')) IN ('true', '1') THEN CAST(1 AS BIT)
                 ELSE CAST(0 AS BIT)
             END AS b2b,
-            CASE UPPER(NULLIF(LTRIM(RTRIM(ship_state)), ''))
-                WHEN 'NEW DELHI' THEN 'DELHI'
-                WHEN 'ORISSA' THEN 'ODISHA'
-                WHEN 'PONDICHERRY' THEN 'PUDUCHERRY'
-                WHEN 'RAJSTHAN' THEN 'RAJASTHAN'
-                WHEN 'RAJSHTHAN' THEN 'RAJASTHAN'
-                ELSE UPPER(NULLIF(LTRIM(RTRIM(ship_state)), ''))
-            END AS ship_state,
+            UPPER(NULLIF(LTRIM(RTRIM(REPLACE(ship_state, '"', ''))), '')) AS ship_state,
             SYSUTCDATETIME() AS dwh_create_date
         FROM dedup
         WHERE rn = 1
@@ -83,8 +76,6 @@ BEGIN
         ship_state,
         dwh_create_date
     FROM cleaned
-    WHERE order_id IS NOT NULL
-      AND qty > 0
-      AND amount > 0;
+    WHERE order_id IS NOT NULL;
 END;
 GO

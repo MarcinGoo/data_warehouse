@@ -24,11 +24,10 @@ BEGIN
             'Amazon Retail' AS sales_source,
             'Retail Customer' AS customer_name,
             s.qty AS quantity,
-            s.amount AS sales_amount,
+            ISNULL(s.amount, 0) AS gross_sales_amount,
+            CASE WHEN COALESCE(s.order_status, '') = 'Cancelled' THEN 0 ELSE ISNULL(s.amount, 0) END AS net_sales_amount,
+            CASE WHEN COALESCE(s.order_status, '') = 'Cancelled' THEN ISNULL(s.amount, 0) ELSE 0 END AS cancelled_amount,
             CASE WHEN s.qty > 0 THEN CAST(s.amount / s.qty AS DECIMAL(18,2)) ELSE s.amount END AS unit_price,
-            ISNULL(p.unit_cost_tp, 0.00) AS unit_cost,
-            CAST(s.qty * ISNULL(p.unit_cost_tp, 0.00) AS DECIMAL(18,2)) AS total_cost,
-            CAST(s.amount - (s.qty * ISNULL(p.unit_cost_tp, 0.00)) AS DECIMAL(18,2)) AS gross_profit,
             s.b2b AS is_b2b
         FROM silver.amazon_sales s
         LEFT JOIN gold.dim_product p ON s.sku = p.sku
@@ -49,11 +48,10 @@ BEGIN
             'International B2B' AS sales_source,
             COALESCE(i.customer, 'International Buyer') AS customer_name,
             i.pcs AS quantity,
-            i.gross_amt AS sales_amount,
+            ISNULL(i.gross_amt, 0) AS gross_sales_amount,
+            ISNULL(i.gross_amt, 0) AS net_sales_amount,
+            0 AS cancelled_amount,
             CAST(i.rate AS DECIMAL(18,2)) AS unit_price,
-            ISNULL(p.unit_cost_tp, 0.00) AS unit_cost,
-            CAST(i.pcs * ISNULL(p.unit_cost_tp, 0.00) AS DECIMAL(18,2)) AS total_cost,
-            CAST(i.gross_amt - (i.pcs * ISNULL(p.unit_cost_tp, 0.00)) AS DECIMAL(18,2)) AS gross_profit,
             CAST(1 AS BIT) AS is_b2b
         FROM silver.international_sales i
         LEFT JOIN gold.dim_product p ON i.sku = p.sku
@@ -75,11 +73,10 @@ BEGIN
         sales_source,
         customer_name,
         quantity,
-        sales_amount,
+        gross_sales_amount,
+        net_sales_amount,
+        cancelled_amount,
         unit_price,
-        unit_cost,
-        total_cost,
-        gross_profit,
         is_b2b
     )
     SELECT
@@ -92,11 +89,10 @@ BEGIN
         sales_source,
         customer_name,
         quantity,
-        sales_amount,
+        gross_sales_amount,
+        net_sales_amount,
+        cancelled_amount,
         unit_price,
-        unit_cost,
-        total_cost,
-        gross_profit,
         is_b2b
     FROM CombinedSales;
 END;

@@ -1,0 +1,6 @@
+feat: comprehensive schema updates for gold layer and completed inventory health reports
+
+- Refactored fact_sales to split revenue into gross_sales_amount, net_sales_amount, and cancelled_amount.
+- Updated silver layer transformations for Amazon and International sales to improve data cleaning and date handling.
+- Adapted gold reporting views to use the new revenue columns and updated v_inventory_health structure.
+- Added build.sh and updated project configurations.
