@@ -28,8 +28,6 @@ By deploying this platform, the business can now draw immediate conclusions and 
 ## 5. Power BI Dashboards
 The final product of this data pipeline is a set of interactive Power BI dashboards that consume the Gold layer views. By pushing complex business logic upstream to the SQL database, the BI layer remains lightweight and highly performant. 
 
-*(You can replace the placeholders below with actual screenshots of your dashboards)*
-
 ### Executive Summary
 ![Executive Summary Dashboard](images/executive_summary.png)
 
