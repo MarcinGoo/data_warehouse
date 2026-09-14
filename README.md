@@ -1,88 +1,32 @@
-# Modern Data Warehouse 📊 (Medallion Architecture)
+# E-Commerce Data Warehouse & BI Analytics
 
-![SQL Server](https://img.shields.io/badge/SQL_Server-2022-CC2927?style=for-the-badge&logo=microsoft-sql-server&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Power BI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
+## 1. Project Overview & Business Problem
+The company was operating in a highly fragmented data landscape. Sales data from Amazon (B2C) and international wholesale (B2B) were stored in disjointed formats along with unstructured inventory records. The lack of a centralized Single Source of Truth made it impossible to accurately track overall revenue, monitor fulfillment cancellation rates, or identify bloated inventory (frozen capital).
 
-An end-to-end local Data Warehouse project built using **Microsoft SQL Server** (containerized via Docker) following the **Medallion Architecture** (Bronze, Silver, Gold). The primary goal of this project is to prepare clean, denormalized, and high-performance analytical views ready to be consumed by BI tools such as **Power BI**.
+The goal of this project was to design and build an automated Data Warehouse and Business Intelligence reporting suite that unifies global sales channels, cleanses the data, and provides decision-makers with actionable insights to drive revenue growth, reduce logistics losses, and optimize warehouse space.
 
-## 🏗️ Architecture Overview
+## 2. Architecture
+The system is built on Microsoft SQL Server and follows the Medallion Architecture (Bronze, Silver, Gold), ensuring a scalable and evolutionary approach to data processing:
 
-The pipeline strictly adheres to the Medallion data engineering pattern:
+- Bronze Layer (Raw Data): Stores data in its original format. Used for bulk loading raw datasets.
+- Silver Layer (Cleansed Data): Handles data cleansing, standardizing types, handling NULLs, trimming strings, and filtering out invalid records.
+- Gold Layer (Business Data / Star Schema): The analytical layer designed specifically for Business Intelligence. It merges completely different business models (Amazon B2C and International B2B) into a single Fact table (fact_sales). It utilizes Surrogate Keys and a Default Unknown Member (-1) to ensure referential integrity. 
 
-1. **🥉 Bronze Layer (Raw Data)**: Data is initially loaded as-is from flat files/sources into raw staging tables.
-2. **🥈 Silver Layer (Cleansed & Conformed)**: Data is cleansed, deduplicated, and transformed. Business rules and data quality checks are applied here.
-3. **🥇 Gold Layer (Curated & Business-Ready)**: Data is modeled into a classic **Star Schema** (Fact and Dimension tables) optimized for reporting. Furthermore, highly denormalized views are created on top of the Star Schema to directly feed into dashboards.
+## 3. What Was Achieved
+- Engineered a full-stack data platform unifying global sales channels and inventory.
+- Implemented a robust ETL pipeline leading raw files into optimized analytical structures.
+- Created a unified Star Schema with one central fact table and multiple dimension tables (Date, Product, Geography, Order Channel).
+- Built denormalized SQL views (e.g., v_inventory_health, v_sales_performance) that push complex business logic upstream to the database layer, allowing BI tools to operate efficiently.
 
-## 🚀 Getting Started
+## 4. Key Logic & Business Conclusions
+By deploying this platform, the business can now draw immediate conclusions and take action based on the following implemented logic:
 
-### Prerequisites
-- Docker & Docker Compose
-- Power BI Desktop
-- Git / Bash (for running scripts)
+- Inventory Optimization: Created logic to identify frozen capital by categorizing products into "Dead Stock" (stock > 0 but no sales), "Out of Stock / Fast Mover" (lost opportunity), and "Low Stock". 
+- Logistics Accountability: Explicitly separated net revenue from lost revenue (due to cancellations/returns) in the Fact table. This allows operations to pinpoint exactly which product categories or regions suffer the highest return rates.
+- Strategic Omnichannel View: Executives can compare B2B (Wholesale) and B2C (Amazon) margins and sales volumes side-by-side in a unified data model.
 
-### Run the Environment
-Spin up the SQL Server container and build the Data Warehouse by running:
-
-```bash
-docker-compose up -d
-./build.sh
-```
-This will automatically:
-1. Start MS SQL Server 2022.
-2. Initialize the `DataWarehouse` database.
-3. Sequentially execute all `.sql` scripts for Bronze, Silver, and Gold layers.
-
----
-
-## 📈 Power BI Integration Guide
-
-This project is explicitly designed to serve as a robust backend for **Power BI**. The Gold layer provides 5 distinct views that are pre-calculated, aggregated, and optimized.
-
-### How to Connect:
-1. Open **Power BI Desktop**.
-2. Click **Get Data** -> **SQL Server database**.
-3. **Server**: `localhost,1433`
-4. **Database**: `DataWarehouse`
-5. **Data Connectivity mode**: Choose **Import** (recommended for smaller datasets to utilize DAX locally) or **DirectQuery**.
-6. **Authentication**: Use Database authentication. 
-   - **Username**: `sa`
-   - **Password**: `KataPENTA1337` (or the one defined in your `.env`)
-
-### Recommended Dashboards & Views
-
-When loading data into Power BI, select the following views from the `gold` schema:
-
-#### 1. Sales Executive Dashboard (`gold.v_sales_performance`)
-**Goal:** High-level overview of sales trends.
-- **Visuals:** 
-  - Line Chart: Revenue over time (`order_date` vs `sales_amount`).
-  - Donut Chart: B2B vs B2C Revenue (`is_b2b`).
-  - Matrix: Top 5 performing Product Categories.
-- **KPI Cards:** Total Revenue, Total Orders, Average Order Value.
-
-#### 2. Inventory Management (`gold.v_inventory_health`)
-**Goal:** Prevent stockouts and identify dead stock.
-- **Visuals:**
-  - Bar Chart: Count of SKUs by `stock_status` (Healthy, Low, Dead).
-  - Scatter Plot: Total Units Sold vs. Current Stock.
-- **KPI Cards:** Total Units in Stock, SKUs Out of Stock.
-
-#### 3. Geographic Performance (`gold.v_geography_sales`)
-**Goal:** Understand regional market penetration.
-- **Visuals:**
-  - Map Visual: `country` / `state_name` mapped to bubble size for `total_revenue`.
-  - Treemap: Sales by `market_region`.
-
-#### 4. Customer Insights (`gold.v_customer_analysis`)
-**Goal:** Analyze customer buying behavior.
-- **Visuals:**
-  - Column Chart: Top 10 Customers by Revenue.
-  - Card: Average Order Value.
-  - Table: Last purchase dates to identify churning customers.
-
-#### 5. Time Intelligence (`gold.v_time_series_sales`)
-**Goal:** Advanced DAX time-intelligence (YTD, MTD comparisons).
-- **Visuals:**
-  - Line & Clustered Column Chart: Daily Revenue vs Daily Orders.
-  - Slicer: Filter by Year and Quarter.
+## 5. Power BI Dashboards
+The final product of this data pipeline is a set of interactive Power BI dashboards that consume the Gold layer views. These dashboards visualize the actionable insights without the need for complex DAX logic, as the data is pre-aggregated and categorized directly in SQL:
+- Executive Summary: High-level view of growth and category performance.
+- Operations and Fulfillment: Deep-dive into logistics, tracking lost revenue.
+- Inventory Health: Actionable dashboard identifying Dead Stock and Fast Movers.
