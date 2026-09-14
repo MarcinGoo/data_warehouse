@@ -49,7 +49,8 @@ A deep-dive into logistics, explicitly tracking net revenue versus lost revenue 
 ### Inventory Health
 ![Inventory Health Dashboard](images/inventory_health.png)
 
-This dashboard is designed with advanced Business Intelligence UX principles to make it strictly actionable for procurement and marketing teams:
-- **Zero-DAX Logic**: Categorization of stock (Dead Stock, Out of Stock, Low Stock, Not Active / Zero Stock) is calculated directly in the SQL database, ensuring a Single Source of Truth.
-- **Edge Case Handling**: The underlying SQL engine automatically traps "phantom SKUs" (products with 0 stock and 0 historical sales) into a dedicated Not Active / Zero Stock category so they do not artificially bloat the "Low Stock" metrics.
-- **Advanced Drill-Down UX**: The dashboard utilizes interactive Slicers configured via custom visual interactions. Selecting a stock status instantly filters the detailed SKU table for action (e.g., liquidation), while intelligently leaving the high-level KPI cards untouched to preserve the global warehouse context.
+This dashboard serves as a strategic tool for procurement and marketing teams to optimize warehouse space and unlock frozen capital. Key business features include:
+- **Capital Liquidation**: Instantly identifies "Dead Stock" (items physically taking up space with zero historical sales), allowing marketing to launch targeted clearance campaigns.
+- **Opportunity Management**: Tracks "Out of Stock" fast-moving items to help procurement prioritize reordering and prevent lost revenue.
+- **Accurate Inventory Valuation**: Automatically filters out inactive or phantom products, ensuring that stock metrics and warehouse utilization reports remain highly accurate.
+- **Actionable Insights**: Provides a seamless transition from high-level warehouse metrics to granular, SKU-level details, enabling immediate operational decisions without losing sight of overall inventory health.
