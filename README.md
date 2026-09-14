@@ -26,7 +26,24 @@ By deploying this platform, the business can now draw immediate conclusions and 
 - Strategic Omnichannel View: Executives can compare B2B (Wholesale) and B2C (Amazon) margins and sales volumes side-by-side in a unified data model.
 
 ## 5. Power BI Dashboards
-The final product of this data pipeline is a set of interactive Power BI dashboards that consume the Gold layer views. These dashboards visualize the actionable insights without the need for complex DAX logic, as the data is pre-aggregated and categorized directly in SQL:
-- Executive Summary: High-level view of growth and category performance.
-- Operations and Fulfillment: Deep-dive into logistics, tracking lost revenue.
-- Inventory Health: Actionable dashboard identifying Dead Stock and Fast Movers.
+The final product of this data pipeline is a set of interactive Power BI dashboards that consume the Gold layer views. By pushing complex business logic upstream to the SQL database, the BI layer remains lightweight and highly performant. 
+
+*(You can replace the placeholders below with actual screenshots of your dashboards)*
+
+### ?? Executive Summary
+![Executive Summary Dashboard](images/executive_summary.png)
+
+Provides a high-level overview of growth, total revenue, and category performance, empowering leadership with immediate insights into overall business health.
+
+### ?? Operations & Fulfillment
+![Operations Dashboard](images/operations.png)
+
+A deep-dive into logistics, explicitly tracking net revenue versus lost revenue (due to cancellations/returns). This allows operations to pinpoint exactly which product categories or regions suffer the highest return rates.
+
+### ?? Inventory Health (Highlight)
+![Inventory Health Dashboard](images/inventory_health.png)
+
+This dashboard is designed with advanced Business Intelligence UX principles to make it strictly actionable for procurement and marketing teams:
+- **Zero-DAX Logic**: Categorization of stock (Dead Stock, Out of Stock, Low Stock, Not Active / Zero Stock) is calculated directly in the SQL database, ensuring a Single Source of Truth.
+- **Edge Case Handling**: The underlying SQL engine automatically traps "phantom SKUs" (products with 0 stock and 0 historical sales) into a dedicated Not Active / Zero Stock category so they do not artificially bloat the "Low Stock" metrics.
+- **Advanced Drill-Down UX**: The dashboard utilizes interactive Slicers configured via custom visual interactions. Selecting a stock status instantly filters the detailed SKU table for action (e.g., liquidation), while intelligently leaving the high-level KPI cards untouched to preserve the global warehouse context.
