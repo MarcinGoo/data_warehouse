@@ -72,6 +72,7 @@ SELECT
     ISNULL(SUM(f.cancelled_amount), 0.00) AS total_lost_revenue,
     CASE 
         WHEN p.current_stock = 0 AND ISNULL(SUM(f.quantity), 0) > 0 THEN 'Out of Stock / Fast Mover'
+        WHEN p.current_stock = 0 AND ISNULL(SUM(f.quantity), 0) = 0 THEN 'Not Active / Zero Stock'
         WHEN p.current_stock > 0 AND ISNULL(SUM(f.quantity), 0) = 0 THEN 'Dead Stock'
         WHEN p.current_stock < 10 THEN 'Low Stock'
         ELSE 'Healthy Stock'
