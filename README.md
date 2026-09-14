@@ -30,17 +30,23 @@ The final product of this data pipeline is a set of interactive Power BI dashboa
 
 *(You can replace the placeholders below with actual screenshots of your dashboards)*
 
-### ?? Executive Summary
+### Executive Summary
 ![Executive Summary Dashboard](images/executive_summary.png)
 
-Provides a high-level overview of growth, total revenue, and category performance, empowering leadership with immediate insights into overall business health.
+Provides a high-level overview of business growth and revenue performance. Key features include:
+- **Core KPIs**: Tracking Total Revenue, Average Order Value (AOV), and Total Units Sold.
+- **Channel Comparison**: A clear breakdown of B2C (Amazon) versus B2B (International) sales contribution.
+- **Geographical & Category Insights**: Identifying top-performing regions via a Treemap and best-selling product categories, empowering leadership with immediate strategic insights.
 
-### ?? Operations & Fulfillment
+### Operations & Fulfillment
 ![Operations Dashboard](images/operations.png)
 
-A deep-dive into logistics, explicitly tracking net revenue versus lost revenue (due to cancellations/returns). This allows operations to pinpoint exactly which product categories or regions suffer the highest return rates.
+A deep-dive into logistics, explicitly tracking net revenue versus lost revenue (due to cancellations, returns, and lost in transit items). Key features include:
+- **Lost Revenue Tracking**: Monitoring the exact financial impact of cancelled or returned orders over time.
+- **Cancellation Analysis**: Pinpointing exactly which product categories suffer the highest cancellation rates.
+- **Fulfillment Status**: A detailed breakdown of all order statuses (Pending, Shipped, Returned, Rejected) to identify operational bottlenecks.
 
-### ?? Inventory Health (Highlight)
+### Inventory Health
 ![Inventory Health Dashboard](images/inventory_health.png)
 
 This dashboard is designed with advanced Business Intelligence UX principles to make it strictly actionable for procurement and marketing teams:
